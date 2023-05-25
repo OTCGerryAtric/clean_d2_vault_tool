@@ -1,5 +1,4 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from st_aggrid import AgGrid, GridOptionsBuilder
 
 from csv_processing import manifest_weapon_data
