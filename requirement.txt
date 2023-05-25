@@ -1,2 +1,2 @@
 streamlit==1.22.0
-streamlit-aggrid==0.3.4post3
+streamlit_aggrid==0.3.4post3
