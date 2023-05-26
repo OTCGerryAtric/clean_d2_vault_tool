@@ -502,17 +502,17 @@ def main():
             weapon_name_list = sorted(pg3_name_list['Weapon Name With Season'].unique())
             weapon_selected_name = col2.selectbox('Select Weapon For Comparison', weapon_name_list)
 
-        # Create List for Comparison
-        weapon_list = sorted(manifest_data_filtered_pg3['Weapon Name With Season'].unique())
-        if weapon_selected_name in weapon_name_list:
-            weapon_list.remove(weapon_selected_name)
-        weapon_compare_list = col3.multiselect('Select Weapon To Compare', weapon_list)
-
         # Update Sidebar
         comparison_weapon_type = manifest_weapon_data.loc[manifest_weapon_data['Weapon Name With Season'] == weapon_selected_name, 'Weapon Type'].iloc[0]
         comparison_weapon_archetype = manifest_weapon_data.loc[manifest_weapon_data['Weapon Name With Season'] == weapon_selected_name, 'Weapon Archetype'].iloc[0]
         manifest_data_filtered_pg3 = manifest_data_filtered_pg3.loc[manifest_data_filtered_pg3['Weapon Type'] == comparison_weapon_type]
         manifest_data_filtered_pg3 = manifest_data_filtered_pg3.loc[manifest_data_filtered_pg3['Weapon Archetype'] == comparison_weapon_archetype]
+
+        # Create List for Comparison
+        weapon_list = sorted(manifest_data_filtered_pg3['Weapon Name With Season'].unique())
+        if weapon_selected_name in weapon_name_list:
+            weapon_list.remove(weapon_selected_name)
+        weapon_compare_list = col3.multiselect('Select Weapon To Compare', weapon_list)
 
         # Set up comparison type
         comparison_type = col4.selectbox('Choose The Type Of Comparison', ['Absolute', 'Relative'])
