@@ -237,7 +237,7 @@ def main():
         # Use st.write to display the formatted hyperlink text
         col5.write(f'<a href="{selected_url_5}" target="_blank">{link_text_5}</a>', unsafe_allow_html=True)
 
-        with st.expander('How to use', expanded=False):
+        with st.expander('How To Use', expanded=False):
             st.write(
                 'There are many amazing resources for Destiny 2, but I always hoard too many weapons and armour (sorry, from the UK!!)')
             st.write('')
@@ -268,6 +268,10 @@ def main():
             st.write('Finally, click on the DIM File Uploader at the top of the file and upload the two files')
             st.write('')
             st.write("This really doesn't take long, I promise!")
+
+    with st.expander('About Me', expanded=False):
+        st.write('Destiny player since the start. Gamer tag is OTC Gerry Atric, part of The Iron Wolves clan, and can be found regularly failing jumping puzzles on Xbox. Also on Twitter.')
+        st.write('Any suggestions / feedback, please let me know. I hope you find it useful.')
 
     def vault_summary(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
                       selected_slot, selected_element, selected_sunset, selected_owned):
