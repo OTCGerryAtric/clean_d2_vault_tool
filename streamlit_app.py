@@ -483,9 +483,7 @@ def main():
         from data_preperation import load_weapon_type_data, create_grid_table, create_hyperlinks_v2
 
         # Set up data from and apply sidebar filter
-        manifest_data_filtered_pg3 = apply_all_filters(manifest_weapon_data, selected_tier, selected_type,
-                                                       selected_archetype, selected_slot, selected_element,
-                                                       selected_sunset)
+        manifest_data_filtered_pg3 = apply_all_filters(manifest_weapon_data, selected_tier, selected_type, selected_archetype, selected_slot, selected_element, selected_sunset)
 
         # Set up columns for multiselect
         col1, col2, col3, col4, col5 = st.columns([2, 2, 4, 2, 2])
@@ -534,8 +532,8 @@ def main():
         printing_df = pd.concat([filtered_df, comparison_df], ignore_index=True)
 
         # Create table, based on selected weapon type
-        if selected_type != 'Select all':
-            printing_df = load_weapon_type_data(printing_df, selected_type)
+        if comparison_weapon_type != 'Select all':
+            printing_df = load_weapon_type_data(printing_df, comparison_weapon_type)
         else:
             printing_df = printing_df[
                 ['Weapon Name With Season', 'Weapon Name', 'Weapon Season', 'Weapon Hash', 'Weapon Tier', 'Weapon Type',
