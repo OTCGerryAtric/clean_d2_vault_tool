@@ -249,7 +249,7 @@ def main():
             st.write('There are 4 screens that you can use to help, which are,')
             st.write('   1. Vault Summary - Look at Weapons / Armour that you own - https://youtu.be/hqw8e7br-Zg')
             st.write('   2. Weapon Analysis - Weapons Database with and one click to D2 Foundry and Light.gg - https://youtu.be/9sbJda9ByQ8')
-            st.write('   3. Weapon Comparison - Compare a weapon to others - https://youtu.be/6payxxzI-H8')
+            st.write('   3. Weapon Comparison - Compare a weapon to others - https://youtu.be/ZTOvZJ3k8hs')
             st.write('   4. Weapon Perks - Look for Perk Combinations - https://youtu.be/4WfAhQCYK3Y')
             st.write('')
             st.write(
