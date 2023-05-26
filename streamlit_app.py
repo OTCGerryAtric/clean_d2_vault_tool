@@ -269,9 +269,9 @@ def main():
             st.write('')
             st.write("This really doesn't take long, I promise!")
 
-    with st.expander('About Me', expanded=False):
-        st.write('Destiny player since the start. Gamer tag is OTC Gerry Atric, part of The Iron Wolves clan, and can be found regularly failing jumping puzzles on Xbox. Also on Twitter.')
-        st.write('Any suggestions / feedback, please let me know. I hope you find it useful.')
+        with st.expander('About Me', expanded=False):
+            st.write('Destiny player since the start. Gamer tag is OTC Gerry Atric, part of The Iron Wolves clan, and can be found regularly failing jumping puzzles on Xbox. Also on Twitter.')
+            st.write('Any suggestions / feedback, please let me know. I hope you find it useful.')
 
     def vault_summary(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
                       selected_slot, selected_element, selected_sunset, selected_owned):
