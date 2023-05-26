@@ -7,12 +7,10 @@ from typing import Any
 st.set_page_config(page_title="Destiny 2 Vault Tool", page_icon=None, layout="wide", initial_sidebar_state="expanded",
                    menu_items=None)
 
-
 # Define Session State
 class SessionState:
     def __init__(self, **kwargs: Any):
         self.__dict__.update(kwargs)
-
 
 # Load Manifest Data
 from csv_processing import manifest_weapon_data
@@ -45,7 +43,6 @@ def apply_all_filters(df, selected_tier, selected_type, selected_archetype, sele
         df = df.loc[df['Is Sunset'] == 'No']
     return df
 
-
 def apply_reduced_filters(df, selected_tier, selected_sunset):
     # Apply filters here
     if len(selected_tier) > 0:
@@ -54,12 +51,10 @@ def apply_reduced_filters(df, selected_tier, selected_sunset):
         df = df.loc[df['Is Sunset'] == 'No']
     return df
 
-
 def is_owned_filters(df, is_owned):
     if is_owned == 'Yes':
         df = df.loc[df['Count'] > 0]
     return df
-
 
 def weapon_type_filter(manifest_weapon_data, selected_tier):
     if len(selected_tier) > 0:
@@ -68,7 +63,6 @@ def weapon_type_filter(manifest_weapon_data, selected_tier):
     else:
         weapon_type_filter_df = sorted(manifest_weapon_data['Weapon Type'].unique())
     return weapon_type_filter_df
-
 
 def weapon_archetype_filter(manifest_weapon_data, selected_tier, selected_type):
     if len(selected_tier) > 0 and selected_type != 'Select all':
@@ -84,7 +78,6 @@ def weapon_archetype_filter(manifest_weapon_data, selected_tier, selected_type):
     else:
         weapon_archetype_filter_df = sorted(manifest_weapon_data['Weapon Archetype'].unique())
     return weapon_archetype_filter_df
-
 
 def weapon_slot_filter(manifest_weapon_data, selected_tier, selected_type, selected_archetype):
     if len(selected_tier) > 0 and selected_type != 'Select all' and selected_archetype != 'Select all':
@@ -254,17 +247,18 @@ def main():
             st.write('')
             st.write('')
             st.write('There are 4 screens that you can use to help, which are,')
-            st.write('   1. Vault Summary - ')
-            st.write('   2. Weapon Analysis - ')
-            st.write('   3. Weapon Comparison - ')
-            st.write('   4. Weapon Perks - ')
+            st.write('   1. Vault Summary - Look at Weapons / Armour that you own - https://youtu.be/hqw8e7br-Zg')
+            st.write('   2. Weapon Analysis - Weapons Database with and one click to D2 Foundry and Light.gg - https://youtu.be/9sbJda9ByQ8')
+            st.write('   3. Weapon Comparison - Compare a weapon to others - https://youtu.be/6payxxzI-H8')
+            st.write('   4. Weapon Perks - Look for Perk Combinations - https://youtu.be/4WfAhQCYK3Y')
             st.write('')
             st.write(
-                "I've put descriptions down below and done a few videos, but these are the things to do first, if you want to use everything")
+                "I've done a few videos (links above), but these are the things to do first, if you want to use everything")
             st.write('')
             st.write(
                 "   1. Make sure you are registered with Bungie (link above). Click on 'My Account', then 'Join Up'")
             st.write('   2. Sign in to the excellent Destiny Item Manager (DIM) (links above)')
+            st.write('   3. Download Files from DIM - https://youtu.be/spEjSFjn9RE')
             st.write('   3. Sign in to the also excellent light.gg (links above)')
             st.write(
                 "   4. Just want to also mention D2foundry.gg. You don't need to sign in, but this site is amazing")
@@ -274,16 +268,6 @@ def main():
             st.write('Finally, click on the DIM File Uploader at the top of the file and upload the two files')
             st.write('')
             st.write("This really doesn't take long, I promise!")
-
-        with st.expander('Using Filters', expanded=False):
-            st.write(
-                "There are a series of filter in a sidebar, on the left. You can use these to look a specific things.")
-            st.write('')
-            st.write("In the other pages, you may also find filters that you can use")
-
-        with st.expander('Vault Summary', expanded=False):
-            st.write('This will show you have many weapons and pieces of armour you have)')
-            st.write('It then shows you how many weapons you have ')
 
     def vault_summary(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
                       selected_slot, selected_element, selected_sunset, selected_owned):
