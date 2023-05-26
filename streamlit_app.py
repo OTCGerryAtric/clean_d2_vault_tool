@@ -541,7 +541,7 @@ def main():
                  'Weapon Element', 'Weapon Current Version', 'Weapon Power Cap', 'Is Sunset']]
 
         if comparison_type == 'Relative':
-            if selected_type == 'Grenade Launcher' or selected_type == 'Rocket Launcher':
+            if comparison_weapon_type == 'Grenade Launcher' or selected_type == 'Rocket Launcher':
                 first_index = printing_df.columns.get_loc("Blast Radius")
             else:
                 first_index = printing_df.columns.get_loc("Impact")
