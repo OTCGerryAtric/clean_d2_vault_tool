@@ -41,6 +41,8 @@ def apply_all_filters(df, selected_tier, selected_type, selected_archetype, sele
         df = df.loc[df['Weapon Element'] == selected_element]
     if selected_sunset == 'Yes':
         df = df.loc[df['Is Sunset'] == 'No']
+    if selected_sunset == 'Yes':
+        df = df.loc[df['Is Sunset'] == 'No']
     return df
 
 def apply_reduced_filters(df, selected_tier, selected_sunset):
@@ -49,11 +51,6 @@ def apply_reduced_filters(df, selected_tier, selected_sunset):
         df = df.loc[df['Weapon Tier'].isin(selected_tier)]
     if selected_sunset == 'Yes':
         df = df.loc[df['Is Sunset'] == 'No']
-    return df
-
-def is_owned_filters(df, is_owned):
-    if is_owned == 'Yes':
-        df = df.loc[df['Count'] > 0]
     return df
 
 def weapon_type_filter(manifest_weapon_data, selected_tier):
@@ -166,11 +163,7 @@ def sidebar():
     selected_sunset = st.sidebar.selectbox('Exclude Sunset Weapons', exclude_sunset, index=0,
                                            help='Include or Exclude Sunset Weapons')
 
-    user_owned = ['Yes', 'No']
-    selected_owned = st.sidebar.selectbox('Only Include Owned Weapons', user_owned, index=1,
-                                          help='Only Look At Weapons Owned')
-
-    return selected_tier, selected_type, selected_archetype, selected_slot, selected_element, selected_sunset, selected_owned
+    return selected_tier, selected_type, selected_archetype, selected_slot, selected_element, selected_sunset
 
 
 def main():
@@ -197,11 +190,11 @@ def main():
     st.sidebar.title('Filters')
 
     # Setup Sidebar Filters
-    selected_tier, selected_type, selected_archetype, selected_slot, selected_element, selected_sunset, selected_owned = sidebar()
+    selected_tier, selected_type, selected_archetype, selected_slot, selected_element, selected_sunset = sidebar()
 
     # Define the page functions
     def home_page(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype, selected_slot,
-                  selected_element, selected_sunset, selected_owned):
+                  selected_element, selected_sunset):
         st.title('Home Page')
 
         # Set up columns for multiselect
@@ -274,7 +267,7 @@ def main():
             st.write('Any suggestions / feedback, please let me know. I hope you find it useful.')
 
     def vault_summary(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
-                      selected_slot, selected_element, selected_sunset, selected_owned):
+                      selected_slot, selected_element, selected_sunset):
         st.title('Vault Summary')
 
         # Import Required Functions
@@ -378,7 +371,7 @@ def main():
                 pass
 
     def weapon_analysis(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
-                        selected_slot, selected_element, selected_sunset, selected_owned):
+                        selected_slot, selected_element, selected_sunset):
         st.title('Weapon Analysis')
 
         # Import functions
@@ -476,7 +469,7 @@ def main():
             create_hyperlinks_v1(manifest_data_filtered_pg2, grid_table, col1, col2, col3, col4)
 
     def weapon_comparison(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
-                          selected_slot, selected_element, selected_sunset, selected_owned):
+                          selected_slot, selected_element, selected_sunset):
         st.title('Weapon Comparison')
 
         # Import functions
@@ -565,7 +558,7 @@ def main():
         create_hyperlinks_v2(printing_df, grid_table, col5)
 
     def weapon_perks(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
-                     selected_slot, selected_element, selected_sunset, selected_owned):
+                     selected_slot, selected_element, selected_sunset):
         st.title('Weapon Perks')
 
         # Import functions
@@ -633,15 +626,20 @@ def main():
             manifest_data_filtered_pg4 = manifest_data_filtered_pg4.merge(weapon_count, on='Weapon Hash', how='left')
             manifest_data_filtered_pg4.insert(1, 'Count', manifest_data_filtered_pg4.pop('count'))
 
-        # Create table
-        grid_table = create_grid_table(manifest_data_filtered_pg4, selected_tier, selected_type, selected_archetype,
-                                       selected_slot, selected_element, selected_sunset)
+        with st.expander('Available Weapons', expanded=True):
 
-        # Create hyperlinks
-        create_hyperlinks_v2(manifest_data_filtered_pg4, grid_table, col5)
+            # Create table
+            grid_table = create_grid_table(manifest_data_filtered_pg4, selected_tier, selected_type, selected_archetype,
+                                           selected_slot, selected_element, selected_sunset)
+
+            # Create hyperlinks
+            create_hyperlinks_v2(manifest_data_filtered_pg4, grid_table, col5)
+
+        with st.expander('Owned Weapons', expanded=True):
+            st.write('Hello')
 
     def build_tool(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype, selected_slot,
-                   selected_element, selected_sunset, selected_owned):
+                   selected_element, selected_sunset):
         st.title('Build Tool')
         st.title('')
         st.title('Coming Soon')
@@ -649,22 +647,18 @@ def main():
     # Call the selected page function
     page = {
         'Home': lambda: home_page(session_state, manifest_weapon_data, selected_tier, selected_type, selected_archetype,
-                                  selected_slot, selected_element, selected_sunset, selected_owned),
+                                  selected_slot, selected_element, selected_sunset),
         'Vault Summary': lambda: vault_summary(session_state, manifest_weapon_data, selected_tier, selected_type,
-                                               selected_archetype, selected_slot, selected_element, selected_sunset,
-                                               selected_owned),
+                                               selected_archetype, selected_slot, selected_element, selected_sunset),
         'Weapon Analysis': lambda: weapon_analysis(session_state, manifest_weapon_data, selected_tier, selected_type,
-                                                   selected_archetype, selected_slot, selected_element, selected_sunset,
-                                                   selected_owned),
+                                                   selected_archetype, selected_slot, selected_element, selected_sunset),
         'Weapon Comparison': lambda: weapon_comparison(session_state, manifest_weapon_data, selected_tier,
                                                        selected_type, selected_archetype, selected_slot,
-                                                       selected_element, selected_sunset, selected_owned),
+                                                       selected_element, selected_sunset),
         'Weapon Perks': lambda: weapon_perks(session_state, manifest_weapon_data, selected_tier, selected_type,
-                                             selected_archetype, selected_slot, selected_element, selected_sunset,
-                                             selected_owned),
+                                             selected_archetype, selected_slot, selected_element, selected_sunset),
         'Build Tool': lambda: build_tool(session_state, manifest_weapon_data, selected_tier, selected_type,
-                                         selected_archetype, selected_slot, selected_element, selected_sunset,
-                                         selected_owned),
+                                         selected_archetype, selected_slot, selected_element, selected_sunset),
     }[selection]
 
     page()
